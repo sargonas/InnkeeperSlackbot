@@ -42,19 +42,17 @@ function formatImageResponse(object, args) {
     }
   }
   if (array_contains(args, 'a')) {
-      img_url = img_url.concat('\n "' + object.name + '",');
-      img_url = img_url.concat('\n "' + object.cardSet + '",');
-      img_url = img_url.concat('\n "' + object.type + '",');
-      img_url = img_url.concat('\n "' + object.faction + '",');
-      img_url = img_url.concat('\n "' + object.rarity + '",');
-      img_url = img_url.concat('\n "' + object.cost + '" mana,');
-      img_url = img_url.concat('\n "' + object.attack + '"/');
-      img_url = img_url.concat('\n "' + object.health + '",');
-      img_url = img_url.concat('\n "' + object.text + '"--');
-      img_url = img_url.concat('\n "' + object.flavor + '",');
-      img_url = img_url.concat('\n "' + object.race + '"');
-      
-      
+      img_url = '';
+      img_url = img_url.concat('\nName: ' + object.name + '');
+      img_url = img_url.concat('\nSet: ' + object.cardSet + '');
+      img_url = img_url.concat('\nType: ' + object.type + '');
+      img_url = img_url.concat('\nClass: ' + object.faction + '');
+      img_url = img_url.concat('\nRarity: ' + object.rarity + '');
+      img_url = img_url.concat('\nCost: ' + object.cost + ' mana');
+      img_url = img_url.concat('\n ' + object.attack + '/');
+      img_url = img_url.concat('' + object.health + '');
+      img_url = img_url.concat('\nText: ' + object.text + '');
+      img_url = img_url.concat('\nFlavor: ' + object.flavor + '');
   }
   return img_url;
 }
