@@ -1,4 +1,4 @@
-{
+npm{
   "name": "slack-hs-bot",
   "version": "0.0.0",
   "description": "a bot for slack to report hearthstone cards",

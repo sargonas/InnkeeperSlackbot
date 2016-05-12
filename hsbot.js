@@ -41,18 +41,35 @@ function formatImageResponse(object, args) {
       img_url = img_url.concat('\n "' + object.flavor + '"');
     }
   }
-  if (array_contains(args, 'a')) {
+  if (array_contains(args, 't')) {
       img_url = '';
       img_url = img_url.concat('\nName: ' + object.name + '');
-      img_url = img_url.concat('\nSet: ' + object.cardSet + '');
-      img_url = img_url.concat('\nType: ' + object.type + '');
-      img_url = img_url.concat('\nClass: ' + object.faction + '');
-      img_url = img_url.concat('\nRarity: ' + object.rarity + '');
-      img_url = img_url.concat('\nCost: ' + object.cost + ' mana');
-      img_url = img_url.concat('\n ' + object.attack + '/');
-      img_url = img_url.concat('' + object.health + '');
-      img_url = img_url.concat('\nText: ' + object.text + '');
-      img_url = img_url.concat('\nFlavor: ' + object.flavor + '');
+      if (object.cardSet !== undefined) {
+        img_url = img_url.concat('\nSet: ' + object.cardSet + '');
+      }
+      if (object.type !== undefined) {
+        img_url = img_url.concat('\nType: ' + object.type + '');
+      }
+      if (object.faction !== undefined) {
+        img_url = img_url.concat('\nClass: ' + object.faction + '');
+      }
+      if (object.rarity !== undefined) {
+        img_url = img_url.concat('\nRarity: ' + object.rarity + '');
+      }
+      if (object.cost !== undefined) {
+        img_url = img_url.concat('\nCost: ' + object.cost + ' mana');
+      }
+      if (object.attack !== undefined) {
+        img_url = img_url.concat('\n ' + object.attack + '/');
+        img_url = img_url.concat('' + object.health + '');
+      }
+      if (object.text !== undefined) {
+        img_url = img_url.concat('\nText: ' + object.text + '');
+      }
+      if (object.flavor !== undefined) {
+        img_url = img_url.concat('\nFlavor: ' + object.flavor + '');
+      }
+      
   }
   return img_url;
 }
@@ -82,7 +99,7 @@ module.exports = function (req, res, next) {
         };
   } catch (err) {
     return res.status(200).json({
-      text: 'Huh? Try your formatting like "Innkeeper [Varian Wrynn]. Add -g for Gold cards and -f for Flavor text to the end"'
+      text: 'Try formatting like "Innkeeper [Varian Wrynn]". Add -g for Gold card image, -f to add Flavor text, and -t for full text to the end"'
     });
   }
 
