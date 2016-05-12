@@ -20,66 +20,65 @@ function array_contains(haystack, needle) {
 
 // decide what image to return
 function formatImageResponse(object, args) {
-  var img_url = '';
+  var card_response = '';
   if (array_contains(args, 'g')) {
     if (object.imgGold === undefined) {
-      img_url = 'Seems like that card doesn\'t have a golden image available, or my closest search match was off. Try again with more specifics or without the -g flag';
+      card_response = 'Seems like that card doesn\'t have a golden image available, or my closest search match was off. Try again with more specifics or without the -g flag';
     } else {
-      img_url = object.imgGold;
+      card_response = object.imgGold;
     }
   } else {
     if (object.img === undefined) {
-      img_url = 'Sorry I couldn\'t find that card.';
+      card_response = 'Sorry I couldn\'t find that card.';
     } else {
-      img_url = object.img;
+      card_response = object.img;
     }
   }
   if (array_contains(args, 'f')) {
     if (object.flavor === undefined) {
-      img_url = img_url.concat('\n there\'s no flavor text available for this card.');
+      card_response = card_response.concat('\n there\'s no flavor text available for this card.');
     } else {
-      img_url = img_url.concat('\n "' + object.flavor + '"');
+      card_response = card_response.concat('\n "' + object.flavor + '"');
     }
   }
   if (array_contains(args, 't')) {
-      img_url = '';
-      img_url = img_url.concat('\n*Name:* ' + object.name + '');
+      card_response = '';
+      card_response = card_response.concat('\n*Name:* ' + object.name + '');
       if (object.cardSet !== undefined) {
-        img_url = img_url.concat('\n*Set:* ' + object.cardSet + '');
+        card_response = card_response.concat('\n*Set:* ' + object.cardSet + '');
       }
       if (object.type !== undefined) {
-        img_url = img_url.concat('\n*Type:* ' + object.type + '');
+        card_response = card_response.concat('\n*Type:* ' + object.type + '');
       }
       if (object.faction !== undefined) {
-        img_url = img_url.concat('\n*Class:* ' + object.faction + '');
+        card_response = card_response.concat('\n*Class:* ' + object.faction + '');
       }
       if (object.rarity !== undefined) {
-        img_url = img_url.concat('\n*Rarity:* ' + object.rarity + '');
+        card_response = card_response.concat('\n*Rarity:* ' + object.rarity + '');
       }
       if (object.cost !== undefined) {
-        img_url = img_url.concat('\n*Cost:* ' + object.cost + ' mana');
+        card_response = card_response.concat('\n*Cost:* ' + object.cost + ' mana');
       }
       if (object.attack !== undefined) {
-        img_url = img_url.concat('\n*Attk/Hp* ' + object.attack + '/'+ object.health +'');
+        card_response = card_response.concat('\n*Attk/Hp* ' + object.attack + '/'+ object.health +'');
       }
       if (object.text !== undefined) {
-        img_url = img_url.concat('\n*Text:* ' + object.text + '');
+        card_response = card_response.concat('\n*Text:* ' + object.text + '');
       }
       if (object.flavor !== undefined) {
-        img_url = img_url.concat('\n*Flavor:* ' + object.flavor + '');
+        card_response = card_response.concat('\n*Flavor:* ' + object.flavor + '');
       }
       
   }
   if (array_contains(args, 'h')) {
-    random = false
-    img_url = 'Format your requests like "Innkeeper [C\'Thun]". \nYou can also append *-g* for a Gold card, *-f* to add Flavor text, and *-t* for text-only details.';
+    card_response = 'Format your requests like "Innkeeper [C\'Thun]". \nYou can also append *-g* for a Gold card, *-f* to add Flavor text, and *-t* for text-only details.';
   }
   // added logic to convert bold and italic to slack-friendly format
-  img_url = img_url.replace("<b>", "*");
-  img_url = img_url.replace("</b>", "*");
-  img_url = img_url.replace("<i>", "_");
-  img_url = img_url.replace("</i>", "_");
-  return img_url;
+  card_response = card_response.replace("<b>", "*");
+  card_response = card_response.replace("</b>", "*");
+  card_response = card_response.replace("<i>", "_");
+  card_response = card_response.replace("</i>", "_");
+  return card_response;
 }
 
 
@@ -90,7 +89,7 @@ module.exports = function (req, res, next) {
       request = require('request'),
       userName = req.body.user_name,
       command = req.body.text,
-      img_url = '',
+      card_response = '',
       args = checkArguments(command);
 
   // Start formatting data.
@@ -133,23 +132,23 @@ module.exports = function (req, res, next) {
           random_array.push(formatImageResponse(json[i], args));
         } else {
           random = false;
-          img_url = "here you go: " + formatImageResponse(json[i], args);
+          card_response = "here you go: " + formatImageResponse(json[i], args);
           break;
         }
       }
     } else {
       random = false;
-      img_url = formatImageResponse(json[0], args);
+      card_response = formatImageResponse(json[0], args);
     }
 
     if (random) {
-      img_url = "Random closest result: " + random_array[Math.floor(Math.random() * random_array.length)]
+      card_response = "Random closest result: " + random_array[Math.floor(Math.random() * random_array.length)]
     }
 
     // Sanity check. We don't want our slackbot to make this shit infinite.
     if (userName !== 'slackbot') {
       return res.status(200).json({
-        text: img_url
+        text: card_response
       });
     } else {
       return res.status(200).end();
