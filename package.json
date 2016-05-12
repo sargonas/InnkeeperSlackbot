@@ -1,8 +1,8 @@
 {
-  "name": "slack-hs-bot",
-  "version": "0.1.1",
-  "description": "a bot for slack to report hearthstone cards",
-  "main": "index.js",
+  "name": "inkeeper-slackbot",
+  "version": "1.2.0",
+  "description": "A web service to power Hearthstone slackbots",
+  "main": "hsbot.js",
   "dependencies": {
     "express": "^4.x.x",
     "body-parser": "^1.x.x",
@@ -20,7 +20,7 @@
     "slack",
     "bot"
   ],
-  "author": "J. Eckert",
+  "author": "sargonas@gmail.com",
   "license": "BSD",
   "bugs": {
     "url": "https://github.com/sargonas/slackHSBot/issues"

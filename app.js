@@ -9,7 +9,7 @@ var port = process.env.PORT || 3000;
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // test route
-app.get('/', function (req, res) { res.status(200).send('Hello Innkeeper!') });
+app.get('/', function (req, res) { res.status(200).send('Hello, I\'m the Innkeeper!<br> Follow the readme to figure out how to make calls against me in slack!') });
 
 // test post route
 app.post('/get_card', hsbot);
@@ -21,5 +21,5 @@ app.use(function (err, req, res, next) {
 });
 
 app.listen(port, function () {
-  console.log('Slack bot listening on port ' + port);
+  console.log('Innkeeper Slackbot listening on port ' + port);
 });

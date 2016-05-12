@@ -43,39 +43,42 @@ function formatImageResponse(object, args) {
   }
   if (array_contains(args, 't')) {
       img_url = '';
-      img_url = img_url.concat('\nName: ' + object.name + '');
+      img_url = img_url.concat('\n*Name:* ' + object.name + '');
       if (object.cardSet !== undefined) {
-        img_url = img_url.concat('\nSet: ' + object.cardSet + '');
+        img_url = img_url.concat('\n*Set:* ' + object.cardSet + '');
       }
       if (object.type !== undefined) {
-        img_url = img_url.concat('\nType: ' + object.type + '');
+        img_url = img_url.concat('\n*Type:* ' + object.type + '');
       }
       if (object.faction !== undefined) {
-        img_url = img_url.concat('\nClass: ' + object.faction + '');
+        img_url = img_url.concat('\n*Class:* ' + object.faction + '');
       }
       if (object.rarity !== undefined) {
-        img_url = img_url.concat('\nRarity: ' + object.rarity + '');
+        img_url = img_url.concat('\n*Rarity:* ' + object.rarity + '');
       }
       if (object.cost !== undefined) {
-        img_url = img_url.concat('\nCost: ' + object.cost + ' mana');
+        img_url = img_url.concat('\n*Cost:* ' + object.cost + ' mana');
       }
       if (object.attack !== undefined) {
-        img_url = img_url.concat('\n ' + object.attack + '/');
-        img_url = img_url.concat('' + object.health + '');
+        img_url = img_url.concat('\n*Attk/Hp* ' + object.attack + '/'+ object.health +'');
       }
       if (object.text !== undefined) {
-        img_url = img_url.concat('\nText: ' + object.text + '');
+        img_url = img_url.concat('\n*Text:* ' + object.text + '');
       }
       if (object.flavor !== undefined) {
-        img_url = img_url.concat('\nFlavor: ' + object.flavor + '');
+        img_url = img_url.concat('\n*Flavor:* ' + object.flavor + '');
       }
       
+  }
+  if (array_contains(args, 'h')) {
+    random = false
+    img_url = 'Format your requests like "Innkeeper [C\'Thun]". \nYou can also append *-g* for a Gold card, *-f* to add Flavor text, and *-t* for text-only details.';
   }
   // added logic to convert bold and italic to slack-friendly format
   img_url = img_url.replace("<b>", "*");
   img_url = img_url.replace("</b>", "*");
   img_url = img_url.replace("<i>", "_");
-  img_url = img_url.replace("</b>", "_");
+  img_url = img_url.replace("</i>", "_");
   return img_url;
 }
 
