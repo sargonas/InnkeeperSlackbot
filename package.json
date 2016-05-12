@@ -1,6 +1,6 @@
 npm{
   "name": "slack-hs-bot",
-  "version": "0.0.0",
+  "version": "0.1.1",
   "description": "a bot for slack to report hearthstone cards",
   "main": "index.js",
   "dependencies": {
@@ -13,16 +13,16 @@ npm{
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/skeltont/slackHSBot.git"
+    "url": "https://github.com/sargonas/slackHSBot.git"
   },
   "keywords": [
     "hearthstone",
     "slack",
     "bot"
   ],
-  "author": "Ty Skelton",
+  "author": "J. Eckert",
   "license": "BSD",
   "bugs": {
-    "url": "https://github.com/skeltont/slackHSBot/issues"
+    "url": "https://github.com/sargonas/slackHSBot/issues"
   }
 }

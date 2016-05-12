@@ -1,6 +1,8 @@
 # slackHSBot
-A webserver that supplies data to outgoing webhooks for a hearthstone-themed slack bots.
-Currently used for finding cards in hearthstone and linking their image into chat. 
+A webserver that supplies data to a Slack outgoing webhook for a hearthstone-themed slack bots.
+Currently used for finding cards in hearthstone and linking their image or text into chat. 
+I've forked https://github.com/skeltont/slackHSBot and made a fair bit of improvements and modifications for my own slack server.
+(If you make use of my own bot, please make sure to give him due credit for the initial heavy lifting!)
 
 ## Install & Run 
 - git clone repo
@@ -8,19 +10,18 @@ Currently used for finding cards in hearthstone and linking their image into cha
 - node app.js
 
 ## Usage
-Right now the only use case is to provide the image in chat, which means there's currently only one command. 
-Configure your slack webhook to send a GET request to the server when it identifies the string 'hsbot'
+Configure an outgoing webhook in slack to send a GET request to the server's hostname (http://example.com/get_card) when it identifies your trigger (we use 'inkeeper' for ours)
 <br /> *Example:* <br />
-``` hsbot [Druid of the Claw] ```
+``` inkeeper [Druid of the Claw] ```
 
 ##### Options
-Only one extra option is available at the moment. This is still a work in progress. 
-- **g**: ```hsbot [Varian Wrynn] -g``` Will link a .gif of the *golden* card image into chat. 
+Three options are available:
+- **g**: ```inkeeper [C'Thun] -g``` Will link a .gif of the *golden* card image into chat. 
+- **f**: ```inkeeper [C'Thun] -f``` Will add the flavor text for the card into chat after the image. 
+- **t**: ```inkeeper [C'Thun] -t``` Will return only all of the card data (skipping undefined sections) with no image into chat. 
 
-## Checking response *outside* of chat
-```curl -X POST --data "text=hsbot [Druid of the Claw]" http://localhost:3000/get_card```
+## Testing your server's response directly in development
+```curl -X POST --data "text=inkeeper [C'Thun]" http://localhost:3000/get_card```
 
 ## API
-This bot makes use of an external api called [hearthstoneapi](http://hearthstoneapi.com/). Replace my key with your key
-from Mashape. This is because I trust you and I'm lazy, but pretty soon I'm gonna hide mine from the repo and get a new
-one anyway. 
+This bot makes use of an external api called [hearthstoneapi](http://hearthstoneapi.com/). You'll need to obtain your own API key there.

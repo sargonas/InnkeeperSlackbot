@@ -8,7 +8,7 @@ function checkArguments(request) {
   return args;
 }
 
-// ghetto bois, ghetto bois, still.
+
 function array_contains(haystack, needle) {
   for (k=0; k < haystack.length; k++) {
     if (haystack[k] === needle) {
@@ -23,7 +23,7 @@ function formatImageResponse(object, args) {
   var img_url = '';
   if (array_contains(args, 'g')) {
     if (object.imgGold === undefined) {
-      img_url = 'Seems like that card doesn\'t have a golden image available. If you weren\'t specific enough I might have grabbed the wrong card. Try being more explicit or using the command again without the -g option';
+      img_url = 'Seems like that card doesn\'t have a golden image available, or my closest search match was off. Try again with more specifics or without the -g flag';
     } else {
       img_url = object.imgGold;
     }
@@ -99,7 +99,7 @@ module.exports = function (req, res, next) {
         };
   } catch (err) {
     return res.status(200).json({
-      text: 'Try formatting like "Innkeeper [Varian Wrynn]". Add -g for Gold card image, -f to add Flavor text, and -t for full text to the end"'
+      text: 'Try formatting like "Innkeeper [C\'Thun]". Append -g for Gold card, -f to add Flavor text, and -t for text-only"'
     });
   }
 
