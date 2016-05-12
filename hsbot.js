@@ -18,9 +18,10 @@ function array_contains(haystack, needle) {
   return false;
 }
 
-// decide what image to return
+//time to decide what data to return
 function formatImageResponse(object, args) {
   var card_response = '';
+  //check if regular or Gold image is requested
   if (array_contains(args, 'g')) {
     if (object.imgGold === undefined) {
       card_response = 'Seems like that card doesn\'t have a golden image available, or my closest search match was off. Try again with more specifics or without the -g flag';
@@ -34,6 +35,7 @@ function formatImageResponse(object, args) {
       card_response = object.img;
     }
   }
+  //check for Flavor text request
   if (array_contains(args, 'f')) {
     if (object.flavor === undefined) {
       card_response = card_response.concat('\n there\'s no flavor text available for this card.');
@@ -41,6 +43,9 @@ function formatImageResponse(object, args) {
       card_response = card_response.concat('\n "' + object.flavor + '"');
     }
   }
+  //check for text-only response, and format output as needed
+  //the API has some data holes and some cards do not have some fields, so
+  //lots of "undefined" logic to help work around that
   if (array_contains(args, 't')) {
       card_response = '';
       card_response = card_response.concat('\n*Name:* ' + object.name + '');
@@ -70,14 +75,16 @@ function formatImageResponse(object, args) {
       }
       
   }
+  //check for the "help" flag
   if (array_contains(args, 'h')) {
     card_response = 'Format your requests like "Innkeeper [C\'Thun]". \nYou can also append *-g* for a Gold card, *-f* to add Flavor text, and *-t* for text-only details.';
   }
-  // added logic to convert bold and italic to slack-friendly format
+  // logic to convert <b> and <i> HTML to slack-friendly format
   card_response = card_response.replace("<b>", "*");
   card_response = card_response.replace("</b>", "*");
   card_response = card_response.replace("<i>", "_");
   card_response = card_response.replace("</i>", "_");
+  //actually return the response
   return card_response;
 }
 
@@ -101,6 +108,7 @@ module.exports = function (req, res, next) {
         options = {
           url: 'https://omgvamp-hearthstone-v1.p.mashape.com/cards/search/' + formatted_card,
           headers: {
+             //replace this with your own API key, scrub!
             'X-Mashape-Key': '4FZPqRKrcSmshcX8xmfmypaH0FKtp1ajFjWjsng2uV7R1ancQn'
           }
         };
@@ -145,7 +153,7 @@ module.exports = function (req, res, next) {
       card_response = "Random closest result: " + random_array[Math.floor(Math.random() * random_array.length)]
     }
 
-    // Sanity check. We don't want our slackbot to make this shit infinite.
+    // Sanity check to prevent a bot from recursively calling itself
     if (userName !== 'slackbot') {
       return res.status(200).json({
         text: card_response
