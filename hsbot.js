@@ -64,12 +64,12 @@ module.exports = function (req, res, next) {
         options = {
           url: 'https://omgvamp-hearthstone-v1.p.mashape.com/cards/search/' + formatted_card,
           headers: {
-            'X-Mashape-Key': 'wnYzcZi04JmshfcT5RAdKmfFO8jmp1FDCNCjsn1P7IFtfiBVOC'
+            'X-Mashape-Key': '4FZPqRKrcSmshcX8xmfmypaH0FKtp1ajFjWjsng2uV7R1ancQn'
           }
         };
   } catch (err) {
     return res.status(200).json({
-      text: 'I didn\'t quite get that. Try formatting your command like "hsbot [Varian Wrynn] -g"'
+      text: 'Huh? Try formatting your command like "Innkeeper [Varian Wrynn] -g"'
     });
   }
 
@@ -82,7 +82,7 @@ module.exports = function (req, res, next) {
     // This is just if it broke completely.
     if (e || r.statusCode !== 200) {
       return res.status(200).json({
-        text: 'Oh Boy! Looks like I couldn\'t find that card.'
+        text: 'Sorry, I couldn\'t find that card.'
       });
     }
 

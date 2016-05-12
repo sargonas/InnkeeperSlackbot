@@ -9,7 +9,7 @@ var port = process.env.PORT || 3000;
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // test route
-app.get('/', function (req, res) { res.status(200).send('Hello gucci!') });
+app.get('/', function (req, res) { res.status(200).send('Hello Innkeeper!') });
 
 // test post route
 app.post('/get_card', hsbot);
