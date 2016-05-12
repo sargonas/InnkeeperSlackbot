@@ -23,13 +23,13 @@ function formatImageResponse(object, args) {
   var img_url = '';
   if (array_contains(args, 'g')) {
     if (object.imgGold === undefined) {
-      img_url = 'Oooh, it looks like that card doesn\'t have a golden image available. If you weren\'t specific enough I might have grabbed the wrong card. Try being more explicit or using the command again without the -g option';
+      img_url = 'Seems like that card doesn\'t have a golden image available. If you weren\'t specific enough I might have grabbed the wrong card. Try being more explicit or using the command again without the -g option';
     } else {
       img_url = object.imgGold;
     }
   } else {
     if (object.img === undefined) {
-      img_url = 'Oi, it looks like I couldn\'t find that card. This is not Ty\'s fault.';
+      img_url = 'Sorry I couldn\'t find that card.';
     } else {
       img_url = object.img;
     }
@@ -40,6 +40,21 @@ function formatImageResponse(object, args) {
     } else {
       img_url = img_url.concat('\n "' + object.flavor + '"');
     }
+  }
+  if (array_contains(args, 'a')) {
+      img_url = img_url.concat('\n "' + object.name + '",');
+      img_url = img_url.concat('\n "' + object.cardSet + '",');
+      img_url = img_url.concat('\n "' + object.type + '",');
+      img_url = img_url.concat('\n "' + object.faction + '",');
+      img_url = img_url.concat('\n "' + object.rarity + '",');
+      img_url = img_url.concat('\n "' + object.cost + '" mana,');
+      img_url = img_url.concat('\n "' + object.attack + '"/');
+      img_url = img_url.concat('\n "' + object.health + '",');
+      img_url = img_url.concat('\n "' + object.text + '"--');
+      img_url = img_url.concat('\n "' + object.flavor + '",');
+      img_url = img_url.concat('\n "' + object.race + '"');
+      
+      
   }
   return img_url;
 }
@@ -69,7 +84,7 @@ module.exports = function (req, res, next) {
         };
   } catch (err) {
     return res.status(200).json({
-      text: 'Huh? Try formatting your command like "Innkeeper [Varian Wrynn] -g"'
+      text: 'Huh? Try your formatting like "Innkeeper [Varian Wrynn]. Add -g for Gold cards and -f for Flavor text to the end"'
     });
   }
 
