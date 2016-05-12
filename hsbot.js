@@ -71,6 +71,11 @@ function formatImageResponse(object, args) {
       }
       
   }
+  // added logic to convert bold and italic to slack-friendly format
+  img_url = img_url.replace("<b>", "*");
+  img_url = img_url.replace("</b>", "*");
+  img_url = img_url.replace("<i>", "_");
+  img_url = img_url.replace("</b>", "_");
   return img_url;
 }
 
