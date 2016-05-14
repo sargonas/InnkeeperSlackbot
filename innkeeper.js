@@ -102,14 +102,18 @@ module.exports = function (req, res, next) {
   // Start formatting data.
   // try-catch, because of the regex
   try {
-    var config = require('./config.json');
+    //uncomment out below if not using heroku
+    //var config = require('./config.json');
     var re = /\[(.*?)\]/,
         card = re.exec(command)[1],
         formatted_card = card.replace(/ /g, "%20"),
         options = {
           url: 'https://omgvamp-hearthstone-v1.p.mashape.com/cards/search/' + formatted_card,
           headers: {
-            'X-Mashape-Key': config.api_key
+            //uncomment out below if using heroku
+            'X-Mashape-Key': ENV['API_KEY']
+            //uncomment below if not using Heroku
+            //'X-Mashape-Key': config.api_key
           }
         };
   } catch (err) {
