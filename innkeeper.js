@@ -111,7 +111,7 @@ module.exports = function (req, res, next) {
           url: 'https://omgvamp-hearthstone-v1.p.mashape.com/cards/search/' + formatted_card,
           headers: {
             //uncomment out below if using heroku
-            'X-Mashape-Key': ENV['API_KEY']
+            'X-Mashape-Key': process.env.API_KEY
             //uncomment below if not using Heroku
             //'X-Mashape-Key': config.api_key
           }
