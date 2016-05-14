@@ -1,6 +1,6 @@
 {
   "name": "inkeeper-slackbot",
-  "version": "1.2.0",
+  "version": "1.4.0",
   "description": "A web service to power Hearthstone slackbots",
   "main": "hsbot.js",
   "dependencies": {
@@ -21,7 +21,7 @@
     "bot"
   ],
   "author": "sargonas@gmail.com",
-  "license": "BSD",
+  "license": "BSD-2-Clause",
   "bugs": {
     "url": "https://github.com/sargonas/slackHSBot/issues"
   }

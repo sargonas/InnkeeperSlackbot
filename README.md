@@ -1,19 +1,24 @@
-# slackHSBot
+# Innkeeper Slackbot
 A webserver that supplies data to a Slack outgoing webhook for a hearthstone-themed slack bots.
 Currently used for finding cards in hearthstone and linking their image or text into chat. 
 I've forked https://github.com/skeltont/slackHSBot and made a fair bit of improvements and modifications for my own slack server.
 (If you make use of my own app, please make sure to give him due credit for all the initial heavy lifting!)
 
 ## Install & Run
-- git clone repo
-- npm install
-- node app.js
+- `git clone repo`
+- `npm install`
+- rename example.config.json to config.json
+- Obtain an API key (see below) and place it in config.json
+- `node app.js`
 
 ### Production deploy
 Everything should be set in place to work on Heroku or a similar production platform.
 
 ## Usage
-Configure an outgoing webhook in slack to send a POST request to the server (http://example.com/get_card) when it identifies your trigger (we use 'inkeeper' for ours).
+Configure an outgoing webhook in slack to send a POST request to the server (http://example.com/get_card) when it identifies your trigger (we use 'innkeeper' for ours).
+There are (currently) two routes you can POST to, depending on your preferences. /get_card is "vanilla" and returns a normal card image, with 3 flags (gold, flavor, and text-only).
+A second route, /get_gold_card, can be optionally configured instead to _always_ return a gold image as the default, with the same flags but swapping gold for plain. 
+(In the event a gold image can not be found in the API, a regular will be returned instead.)
 <br /> *Example:* <br />
 ``` inkeeper [C'Thun] ```
 This should return 
@@ -21,7 +26,8 @@ This should return
 
 ##### Options
 Three additional options are available:
-- **-g**: ```inkeeper [C'Thun] -g``` Will link a .gif of the *golden* card image into chat. 
+- **-g**: ```inkeeper [C'Thun] -g``` Will link a .gif of the *golden* card image into chat. (only available on /get_card)
+- **-p**: ```inkeeper [C'Thun] -g``` Will link a .gif of the *plain* card image into chat. (only available on /get__gold_card)
 - **-f**: ```inkeeper [C'Thun] -f``` Will add the flavor text for the card into chat after the image. 
 - **-t**: ```inkeeper [C'Thun] -t``` Will return only all of the card data (skipping undefined sections) with no image into chat. 
 

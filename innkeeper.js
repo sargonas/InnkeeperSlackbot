@@ -102,14 +102,14 @@ module.exports = function (req, res, next) {
   // Start formatting data.
   // try-catch, because of the regex
   try {
+    var config = require('./config.json');
     var re = /\[(.*?)\]/,
         card = re.exec(command)[1],
         formatted_card = card.replace(/ /g, "%20"),
         options = {
           url: 'https://omgvamp-hearthstone-v1.p.mashape.com/cards/search/' + formatted_card,
           headers: {
-             //replace this with your own API key, scrub!
-            'X-Mashape-Key': '4FZPqRKrcSmshcX8xmfmypaH0FKtp1ajFjWjsng2uV7R1ancQn'
+            'X-Mashape-Key': config.api_key
           }
         };
   } catch (err) {

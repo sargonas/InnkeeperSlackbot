@@ -8,3 +8,6 @@
 
 # dumb stuff
 DS_Store
+
+#ignore config file with api keys
+config.json
