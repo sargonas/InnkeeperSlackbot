@@ -48,3 +48,6 @@ should return
 
 ## API dependency
 This app makes use of an external api called [hearthstoneapi](http://hearthstoneapi.com/). You'll need to obtain your own API key for it, from Mashape (linked to from the API's site).
+
+## Example
+![Example Image](http://i.imgur.com/e7XXx1t.png)
