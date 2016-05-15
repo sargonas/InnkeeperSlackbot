@@ -1,28 +1,27 @@
 # Innkeeper Slackbot
-A webserver that supplies data to a Slack outgoing webhook for a hearthstone-themed slack bots.
+A webserver that supplies data to a Slack outgoing webhook for a hearthstone-themed slack bots. Ideal solution when a full featured slackbot does not make sense or is unavailable.
 Currently used for finding cards in hearthstone and linking their image or text into chat. 
 I've forked https://github.com/skeltont/slackHSBot and made a fair bit of improvements and modifications for my own slack server.
 (If you make use of my own app, please make sure to give him due credit for all the initial heavy lifting!)
 
 ## Install & Run
-- `git clone repo`
+- `git clone` repo
 - `npm install`
 - For non-Heroku use:
   - rename example.config.json to config.json
-  - uncomment specified code in innkeeper/inkeepergold.js
   - Obtain an API key (see below) and place it in config.json
   - `node app.js`
-- For Heroku use:
+- For Heroku use and running locally via Heroku Toolbelt:
   - rename .example.env to .env
   - Obtain an API key (see below) and place it in .env
   - `heroku local:run node app.js`
 
-(If running in production on Heroku, be sure to set your ENV variables on Heroku and keep your .env ignored from git!)
+(If running in production on Heroku, be sure to set your ENV variables in the Heroku dashboard and keep your .env ignored from git!)
 
 ## Usage
 Configure an outgoing webhook in slack to send a POST request to the server (http://example.com/get_card) when it identifies your trigger (we use 'innkeeper' for ours).
 There are (currently) two routes you can POST to, depending on your preferences. /get_card is "vanilla" and returns a normal card image, with 3 flags (gold, flavor, and text-only).
-A second route, /get_gold_card, can be optionally configured instead to _always_ return a gold image as the default, with the same flags but swapping gold for plain. 
+A second route, /get_gold_card, can be optionally configured instead to _always_ return a gold image as the default, with the same flags but swapping the gold argument for plain. 
 (In the event a gold image can not be found in the API, a regular will be returned instead.)
 <br /> *Example:* <br />
 ``` inkeeper [C'Thun] ```
@@ -33,7 +32,7 @@ This should return
 Three additional options are available:
 - **-g**: ```inkeeper [C'Thun] -g``` Will link a .gif of the *golden* card image into chat. (only available on /get_card)
 
-or
+ or
 
 - **-p**: ```inkeeper [C'Thun] -g``` Will link a .gif of the *plain* card image into chat. (only available on /get__gold_card)
 - **-f**: ```inkeeper [C'Thun] -f``` Will add the flavor text for the card into chat after the image. 
