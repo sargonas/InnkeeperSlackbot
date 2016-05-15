@@ -9,10 +9,9 @@ I've forked https://github.com/skeltont/slackHSBot and made a fair bit of improv
 - `npm install`
 - For non-Heroku use:
   - rename example.config.json to config.json
-  - uncomment specified code in innkeeper/inkeepergold.js
   - Obtain an API key (see below) and place it in config.json
   - `node app.js`
-- For Heroku use:
+- For Heroku and local toolbelt use:
   - rename .example.env to .env
   - Obtain an API key (see below) and place it in .env
   - `heroku local:run node app.js`

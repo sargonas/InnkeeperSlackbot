@@ -8,7 +8,6 @@ function checkArguments(request) {
   return args;
 }
 
-
 function array_contains(haystack, needle) {
   for (k=0; k < haystack.length; k++) {
     if (haystack[k] === needle) {
@@ -88,7 +87,6 @@ function formatImageResponse(object, args) {
   return card_response;
 }
 
-
 module.exports = function (req, res, next) {
   // Handle initial data
   var random = true,
@@ -102,18 +100,16 @@ module.exports = function (req, res, next) {
   // Start formatting data.
   // try-catch, because of the regex
   try {
-    //uncomment out below if not using heroku
-    //var config = require('./config.json');
+    //loads process.env API key if your ENV is supported, or config.jon key if not
+    var config = require('./config.json');
+    var mashape_key = process.env.API_KEY || config.api_key;
     var re = /\[(.*?)\]/,
         card = re.exec(command)[1],
         formatted_card = card.replace(/ /g, "%20"),
         options = {
           url: 'https://omgvamp-hearthstone-v1.p.mashape.com/cards/search/' + formatted_card,
           headers: {
-            //uncomment out below if using heroku
-            'X-Mashape-Key': process.env.API_KEY
-            //uncomment below if not using Heroku
-            //'X-Mashape-Key': config.api_key
+            'X-Mashape-Key': mashape_key
           }
         };
   } catch (err) {
@@ -121,7 +117,6 @@ module.exports = function (req, res, next) {
       text: 'Try formatting like "Innkeeper [C\'Thun]". Append -g for Gold card, -f to add Flavor text, and -t for text-only"'
     });
   }
-
 
   // Request response from external api
   request.get(options, function (e, r, b) {
