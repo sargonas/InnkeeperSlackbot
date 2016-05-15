@@ -11,7 +11,7 @@ I've forked https://github.com/skeltont/slackHSBot and made a fair bit of improv
   - rename example.config.json to config.json
   - Obtain an API key (see below) and place it in config.json
   - `node app.js`
-- For Heroku use and running locally via Heroku Toolbelt:
+- For Heroku and local toolbelt use:
   - rename .example.env to .env
   - Obtain an API key (see below) and place it in .env
   - `heroku local:run node app.js`

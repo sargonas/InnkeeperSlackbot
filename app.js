@@ -9,7 +9,7 @@ var port = process.env.PORT || 3000;
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // get route for index
-app.get('/', function (req, res) { res.status(200).send('Hello, I\'m the Innkeeper!<br> Follow the readme to figure out how to make calls against me in slack!') });
+app.get('/', function (req, res) { res.status(200).send('Welcome to my Inn!<br> Follow the readme to figure out how to make calls against me in slack!') });
 
 // card post route
 app.post('/get_card', innkeeper);
