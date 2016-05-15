@@ -7,12 +7,17 @@ I've forked https://github.com/skeltont/slackHSBot and made a fair bit of improv
 ## Install & Run
 - `git clone repo`
 - `npm install`
-- rename example.config.json to config.json
-- Obtain an API key (see below) and place it in config.json
-- `node app.js`
+- For non-Heroku use:
+  - rename example.config.json to config.json
+  - uncomment specified code in innkeeper/inkeepergold.js
+  - Obtain an API key (see below) and place it in config.json
+  - `node app.js`
+- For Heroku use:
+  - rename .example.env to .env
+  - Obtain an API key (see below) and place it in .env
+  - `heroku local:run node app.js`
 
-### Production deploy
-Everything should be set in place to work on Heroku or a similar production platform.
+(If running in production on Heroku, be sure to set your ENV variables on Heroku and keep your .env ignored from git!)
 
 ## Usage
 Configure an outgoing webhook in slack to send a POST request to the server (http://example.com/get_card) when it identifies your trigger (we use 'innkeeper' for ours).
@@ -27,6 +32,9 @@ This should return
 ##### Options
 Three additional options are available:
 - **-g**: ```inkeeper [C'Thun] -g``` Will link a .gif of the *golden* card image into chat. (only available on /get_card)
+
+or
+
 - **-p**: ```inkeeper [C'Thun] -g``` Will link a .gif of the *plain* card image into chat. (only available on /get__gold_card)
 - **-f**: ```inkeeper [C'Thun] -f``` Will add the flavor text for the card into chat after the image. 
 - **-t**: ```inkeeper [C'Thun] -t``` Will return only all of the card data (skipping undefined sections) with no image into chat. 
@@ -39,4 +47,4 @@ should return
 ```{"text":"here you go: http://wow.zamimg.com/images/hearthstone/cards/enus/original/OG_279.png"}```
 
 ## API dependency
-This bot makes use of an external api called [hearthstoneapi](http://hearthstoneapi.com/). You'll need to obtain your own API key for it, from Mashape (linked to from the API's site).
+This app makes use of an external api called [hearthstoneapi](http://hearthstoneapi.com/). You'll need to obtain your own API key for it, from Mashape (linked to from the API's site).
